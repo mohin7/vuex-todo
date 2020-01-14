@@ -1,13 +1,30 @@
 <template>
   <div>
-
+    <h3>Add Todo</h3>
+    <form @submit.prevent="onSubmit">
+      <input v-model="title" type="text" placeholder="Add Todo here..." />
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 </template>
 
 <script>
-  export default {
-    
+import { mapActions } from "vuex";
+export default {
+  name: "AddTodo",
+  data() {
+    return {
+      title: ""
+    };
+  },
+  methods: {
+    ...mapActions(["addTodo"]),
+    onSubmit() {
+      this.addTodo(this.title);
+      this.title = "";
+    }
   }
+};
 </script>
 
 <style lang="scss" scoped>
