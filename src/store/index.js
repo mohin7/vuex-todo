@@ -18,8 +18,8 @@ export default new Vuex.Store({
     newTodo: (state, todo) => {
       return state.todos.unshift(todo);
     },
-    removeTodo: (state, id) =>{
-      return state.todos = state.todos.filter(todo => todo.id !== id)
+    removeTodo: (state, id) => {
+      return (state.todos = state.todos.filter(todo => todo.id !== id));
     }
   },
   actions: {

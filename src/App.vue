@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="container">
-      <AddTodos/>
+      <AddTodos />
       <Todos />
     </div>
   </div>
