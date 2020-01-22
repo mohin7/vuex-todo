@@ -38,6 +38,17 @@ export default new Vuex.Store({
       commit("newTodo", response.data);
     },
 
+    async filterTodo({ commit }, e) {
+      var limit = parseInt(
+        e.target.options[e.target.options.selectedIndex].innerText
+      );
+
+      const response = await axios.get(
+        `https://jsonplaceholder.typicode.com/todos?_limit=${limit}`
+      );
+      commit("setTodos", response.data);
+    },
+
     async deleteTodo({ commit }, id) {
       await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
       commit("removeTodo", id);
