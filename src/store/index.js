@@ -20,6 +20,13 @@ export default new Vuex.Store({
     },
     removeTodo: (state, id) => {
       return (state.todos = state.todos.filter(todo => todo.id !== id));
+    },
+    // update todo
+    updTodo: (state, payload) => {
+      const index = state.todos.findIndex(todo => todo.id !== payload.id);
+      if (index !== -1) {
+        state.todos.splice(index, 1, payload);
+      }
     }
   },
   actions: {
@@ -52,6 +59,16 @@ export default new Vuex.Store({
     async deleteTodo({ commit }, id) {
       await axios.get(`https://jsonplaceholder.typicode.com/todos/${id}`);
       commit("removeTodo", id);
+    },
+
+    // update todo
+    async updateTodo({ commit }, updTodo) {
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,
+        updTodo
+      );
+
+      commit("updTodo", response.data);
     }
   },
   modules: {}

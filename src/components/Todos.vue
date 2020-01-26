@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="todos mt-5">
-      <div class="todo" v-for="todo in allTodos" :key="todo.id">
-        {{ todo.title }} <i @click="deleteTodo(todo.id)">delete  </i>
+      <div
+        @dblclick="onDblClick(todo)"
+        class="todo"
+        :class="{ 'is-complete ': todo.completed }"
+        v-for="todo in allTodos"
+        :key="todo.name"
+      >
+        {{ todo.title }} <i @click="deleteTodo(todo.id)">delete </i>
       </div>
     </div>
   </div>
@@ -13,7 +19,15 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Todos",
   methods: {
-    ...mapActions(["fetchTodos", "deleteTodo"])
+    ...mapActions(["fetchTodos", "deleteTodo", "updateTodo"]),
+    onDblClick(todo) {
+      const updateTodo = {
+        id: todo.id,
+        title: todo.title,
+        completed: !todo.completed
+      };
+      this.updateTodo(updateTodo);
+    }
   },
   created() {
     this.fetchTodos();
